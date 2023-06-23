@@ -117,7 +117,11 @@ function installQuestions() {
 	if [[ ${BOT_AUTO_INSTALL} == '1' ]]; then
 		read -rp "Vvedite API-klyuch ot vashego Telegram bota: " -e API_TOKEN_BOT
 		read -rp "Vvedite Telegram-id administratora: " -e ADMIN_ID_BOT
-		read -rp "Vvedite YOOTOKEN : " -e QIWI_PAYMENT_KEY
+		read -rp "Vvedite SECRET_KEY : " -e SECRET_KEY
+		read -rp "Vvedite API_ID: " -e API_ID
+		read -rp "Vvedite API_KEY: " -e API_KEY
+
+  
 	fi
 	echo ""
 	echo "Otlichno vse osnovnye danny vvedeny!"
@@ -136,19 +140,21 @@ function installWireGuard() {
 		if [[ ${BOT_AUTO_INSTALL} == '1' ]]; then
 			apt-get install unzip
 			apt-get install python3-pip -y
-			wget https://github.com/q1ab/omgvpn_y/archive/refs/heads/master.zip
+			wget https://github.com/q1ab/omgvpn_payok/archive/refs/heads/master.zip
 			unzip master.zip
 			rm master.zip
-			pip install -r "$(pwd)/omgvpn_y-master/requirements.txt"
+			pip install -r "$(pwd)/omgvpn_payok-master/requirements.txt"
 			echo "{
 \"admin_tg_id\": ${ADMIN_ID_BOT},
 \"one_month_cost\": 90,
 \"trial_period\": 3600,
 \"UTC_time\": 3,
 \"tg_token\": \"${API_TOKEN_BOT}\",
-\"YOO-KEY\": \"${QIWI_PAYMENT_KEY}\"
-}" >"$(pwd)/omgvpn_y-master/config.json"
-			chmod 744 -R $(pwd)/omgvpn_y-master/
+\"secret_key\": \"${SECRET_KEY}\",
+\"API_ID\": \"${API_ID}\",
+\"API_KEY\": \"${API_KEY}\"
+}" >"$(pwd)/omgvpn_payok-master/config.json"
+			chmod 744 -R $(pwd)/omgvpn_payok-master/
 			echo "[Unit]
 Description=Admin Bot for Wireguard
 After=multi-user.target
@@ -157,8 +163,8 @@ After=multi-user.target
 Type=simple
 Restart=always
 RestartSec=15
-WorkingDirectory=$(pwd)/omgvpn_y-master
-ExecStart=/usr/bin/python3 $(pwd)/omgvpn_y-master/main.py
+WorkingDirectory=$(pwd)/omgvpn_payok-master
+ExecStart=/usr/bin/python3 $(pwd)/omgvpn_payok-master/main.py
 User=root
 
 [Install]

@@ -117,7 +117,7 @@ function installQuestions() {
 	if [[ ${BOT_AUTO_INSTALL} == '1' ]]; then
 		read -rp "Vvedite API-klyuch ot vashego Telegram bota: " -e API_TOKEN_BOT
 		read -rp "Vvedite Telegram-id administratora: " -e ADMIN_ID_BOT
-		read -rp "Vvedite SECRET_KEY : " -e SECRET_KEY
+		read -rp "Vvedite SECRET_KEY: " -e SECRET_KEY
 		read -rp "Vvedite API_ID: " -e API_ID
 		read -rp "Vvedite API_KEY: " -e API_KEY
 

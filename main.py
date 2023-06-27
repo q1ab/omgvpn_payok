@@ -393,7 +393,7 @@ async def Work_with_Message(m: types.Message):
                 types.InlineKeyboardButton(e.emojize(f"6 мес. 📅 - {str(6 * CONFIG['one_month_cost'])} руб."),
                                            callback_data="BuyMonth:6"))
             await bot.send_message(m.chat.id,
-                                   "<b>Оплатить можно с помощью Банковской карты или ЮMoney кошелька!</b>\n\nВыберите на сколько месяцев хотите приобрести подписку:",
+                                   "<b>Оплатить можно с помощью Банковской карты!</b>\n\nВыберите на сколько месяцев хотите приобрести подписку:",
                                    reply_markup=Butt_payment, parse_mode="HTML")
 
     if e.demojize(m.text) == "Как подключить :gear:":
@@ -598,7 +598,7 @@ def checkPayments():
                     if not payment == 'status': all_pay[f'{payments[payment]["payment_id"]}'] = payments[payment][
                         'transaction_status']
                 for i in log:
-                    if all_pay[i["bill_id"]] == "1":
+                    if i["bill_id"] in all_pay and all_pay[i["bill_id"]] == "1":
                         BotChecking = TeleBot(BOTAPIKEY)
 
                         db = sqlite3.connect(DBCONNECT)
